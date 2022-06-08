@@ -1,4 +1,4 @@
-import os, shutil
+import os
 
 def mode2value(perm:int)->int:
     octal = str(perm)
@@ -32,3 +32,9 @@ def mode2value(perm:int)->int:
 
 def chmod(path, perm):
     os.chmod(path, mode2value(perm))
+
+def chown(path, uid):
+    os.chown(path, uid, -1)
+
+def chgrp(path, gid):
+    os.chown(path, -1, gid)
