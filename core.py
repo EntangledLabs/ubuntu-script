@@ -70,3 +70,26 @@ class ufw():
     @classmethod
     def reload(cls):
         subprocess.run(['ufw', 'reload'])
+
+class editing():
+
+    @classmethod
+    def editor(cls, path:str, changes:dict) -> None:
+        f = open(path, 'r+').readlines()
+        index = 0
+        for line in f:
+            for key,value in changes.items():
+                if re.search(key, line):
+                    f[index] = '{} {}\n'.format(key, value)
+            index = index + 1
+        open(path, 'w+').writelines(f)
+
+    @classmethod
+    def appender(cls, path:str, changes:list) -> None:
+        f = open(path, 'r+').readlines()
+        index = 0
+        for change in changes:
+            changes[index] = '{}\n'.format(change)
+            index = index + 1
+        f.extend(changes)
+        open(path, 'w+').writelines(f)
